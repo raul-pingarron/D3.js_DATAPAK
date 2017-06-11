@@ -1,86 +1,41 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>D3 Example</title>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-    <link href='http://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
-    <style>
-    
-      .axis text {
-        font: 16pt sans-serif;
-        font-family: 'Poiret One', cursive;
-      }
+<!doctype html>
+<meta charset="utf-8">
 
-      .axis path,
-      .axis line {
-        fill: none;
-        stroke: #000;
-        shape-rendering: crispEdges;
-      }
+<!-- load D3js -->
+<script src="http://www.d3plus.org/js/d3.js"></script>
 
-    </style>
-  </head>
-  <body>
-    <script>
+<!-- load D3plus after D3js -->
+<script src="http://www.d3plus.org/js/d3plus.js"></script>
 
-      var outerWidth = 500;
-      var outerHeight = 250;
-      var margin = { left: 90, top: 30, right: 30, bottom: 30 };
-      var barPadding = 0.2;
+<!-- create container element for visualization -->
+<div id="viz"></div>
 
-      var xColumn = "name";
-      var yColumn = "population";
-
-      var innerWidth  = outerWidth  - margin.left - margin.right;
-      var innerHeight = outerHeight - margin.top  - margin.bottom;
-
-      var svg = d3.select("body").append("svg")
-        .attr("width",  outerWidth)
-        .attr("height", outerHeight);
-      var g = svg.append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-      var xAxisG = g.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + innerHeight + ")");
-      var yAxisG = g.append("g")
-        .attr("class", "y axis");
-
-      var xScale = d3.scale.ordinal().rangeBands([0, innerWidth], barPadding);
-      var yScale = d3.scale.linear().range([innerHeight, 0]);
-
-      var xAxis = d3.svg.axis().scale(xScale).orient("bottom")
-        .outerTickSize(0);          // Turn off the marks at the end of the axis.
-      var yAxis = d3.svg.axis().scale(yScale).orient("left")
-        .ticks(5)                   // Use approximately 5 ticks marks.
-        .tickFormat(d3.format("s")) // Use intelligent abbreviations, e.g. 5M for 5 Million
-        .outerTickSize(0);          // Turn off the marks at the end of the axis.
-
-      function render(data){
-
-        xScale.domain(       data.map( function (d){ return d[xColumn]; }));
-        yScale.domain([0, d3.max(data, function (d){ return d[yColumn]; })]);
-
-        xAxisG.call(xAxis);
-        yAxisG.call(yAxis);
-
-        var bars = g.selectAll("rect").data(data);
-        bars.enter().append("rect")
-          .attr("width", xScale.rangeBand());
-        bars
-          .attr("x",      function (d){ return               xScale(d[xColumn]); })
-          .attr("y",      function (d){ return               yScale(d[yColumn]); })
-          .attr("height", function (d){ return innerHeight - yScale(d[yColumn]); });
-        bars.exit().remove();
-      }
-
-      function type(d){
-        d.population = +d.population;
-        return d;
-      }
-
-      d3.csv("https://raw.githubusercontent.com/raul-pingarron/D3.js_DATAPAK/master/ciudades.csv", type, render);
-
-    </script>
-  </body>
-</html>
+<script>
+  // sample data array
+  var sample_data = [
+    {"year": 1991, "name":"alpha", "value": 17},
+    {"year": 1992, "name":"alpha", "value": 20},
+    {"year": 1993, "name":"alpha", "value": 25},
+    {"year": 1994, "name":"alpha", "value": 33},
+    {"year": 1995, "name":"alpha", "value": 52},
+    {"year": 1991, "name":"beta", "value": 36},
+    {"year": 1992, "name":"beta", "value": 32},
+    {"year": 1993, "name":"beta", "value": 40},
+    {"year": 1994, "name":"beta", "value": 58},
+    {"year": 1995, "name":"beta", "value": 13},
+    {"year": 1991, "name":"gamma", "value": 24},
+    {"year": 1992, "name":"gamma", "value": 27},
+    {"year": 1994, "name":"gamma", "value": 35},
+    {"year": 1995, "name":"gamma", "value": 40}
+  ]
+  // instantiate d3plus
+  var visualization = d3plus.viz()
+    .container("#viz")  // container DIV to hold the visualization
+    .data(sample_data)  // data to use with the visualization
+    .type("line")       // visualization type
+    .id("name")         // key for which our data is unique on
+    .text("name")       // key to use for display text
+    .y("value")         // key to use for y-axis
+    .x("year")          // key to use for x-axis
+    .draw()             // finally, draw the visualization!
+</script>
