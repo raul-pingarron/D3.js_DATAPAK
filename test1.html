@@ -18,12 +18,12 @@
     </svg>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-    <link href='http://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
     <style>
     
       .axis text {
         font: 16pt sans-serif;
-        font-family: 'Poiret One', cursive;
+        font-family: 'Roboto Condensed', sans-serif;
       }
 
       .axis path,
@@ -42,8 +42,8 @@
       var margin = { left: 90, top: 30, right: 30, bottom: 30 };
       var barPadding = 0.2;
 
-      var xColumn = "name";
-      var yColumn = "population";
+      var xColumn = "Movie";
+      var yColumn = "BoxOffice";
 
       var innerWidth  = outerWidth  - margin.left - margin.right;
       var innerHeight = outerHeight - margin.top  - margin.bottom;
@@ -88,11 +88,11 @@
       }
 
       function type(d){
-        d.population = +d.population;
+        d.BoxOffice = +d.BoxOffice;
         return d;
       }
 
-      d3.csv("https://raw.githubusercontent.com/raul-pingarron/D3.js_DATAPAK/master/ciudades.csv", type, render);
+      d3.csv("https://raw.githubusercontent.com/raul-pingarron/D3.js_DATAPAK/master/peliculas.csv", type, render);
 
     </script>
   </body>
