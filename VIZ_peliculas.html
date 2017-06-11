@@ -35,6 +35,7 @@
   </head>
   <body>
     <script>
+      var colorScale = d3.scale.category10();
       var outerWidth = 505;
       var outerHeight = 350;
       var margin = { left: 110, top: 50, right: 30, bottom: 60 };
@@ -72,7 +73,8 @@
         bars
           .attr("x",      function (d){ return               xScale(d[xColumn]); })
           .attr("y",      function (d){ return               yScale(d[yColumn]); })
-          .attr("height", function (d){ return innerHeight - yScale(d[yColumn]); });
+          .attr("height", function (d){ return innerHeight - yScale(d[yColumn]); })
+          .attr("fill",    function (d){ return   colorScale(d[yColumn]); });
         bars.exit().remove();
       }
       function type(d){
