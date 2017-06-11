@@ -1,22 +1,12 @@
 <!DOCTYPE html>
-<!--
-Created using JS Bin
-http://jsbin.com
-
-Copyright (c) 2017 by raul-pingarron (http://jsbin.com/bumovav/2/edit)
-
-Released under the MIT license: http://jsbin.mit-license.org
--->
-<meta name="robots" content="noindex">
 <html>
   <head>
-<meta name="description" content="Visualización D3.js">
     <meta charset="utf-8">
     <title>D3 Example</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
     <style>
-
+    
       .axis text {
         font: 16pt sans-serif;
         font-family: 'Poiret One', cursive;
@@ -89,7 +79,7 @@ Released under the MIT license: http://jsbin.mit-license.org
         return d;
       }
 
-      d3.csv("https://github.com/raul-pingarron/D3.js_DATAPAK/blob/master/ciudades.tsv", type, render);
+      d3.csv("geonames_cities_top3.csv", type, render);
 
     </script>
   </body>
