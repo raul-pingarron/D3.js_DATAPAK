@@ -16,11 +16,9 @@
     <text class="texto1" x="40" y="90">más taquilleras</text>
     <text class="texto1" x="40" y="140">de la historia</text>
     </svg>
-
     <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
     <style>
-    
       .axis text {
         font: 16pt sans-serif;
         font-family: 'Roboto Condensed', sans-serif;
@@ -57,11 +55,11 @@
       var xScale = d3.scale.ordinal().rangeBands([0, innerWidth], barPadding);
       var yScale = d3.scale.linear().range([innerHeight, 0]);
       var xAxis = d3.svg.axis().scale(xScale).orient("bottom")
-        .outerTickSize(0);          // Turn off the marks at the end of the axis.
+        .outerTickSize(0);         
       var yAxis = d3.svg.axis().scale(yScale).orient("left")
-        .ticks(5)                   // Use approximately 5 ticks marks.
-        .tickFormat(d3.format("s")) // Use intelligent abbreviations, e.g. 5M for 5 Million
-        .outerTickSize(0);          // Turn off the marks at the end of the axis.
+        .ticks(5)                   
+        .tickFormat(d3.format("s")) 
+        .outerTickSize(0);          
       function render(data){
         xScale.domain(       data.map( function (d){ return d[xColumn]; }));
         yScale.domain([0, d3.max(data, function (d){ return d[yColumn]; })]);
