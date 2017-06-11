@@ -25,29 +25,24 @@
         font: 16pt sans-serif;
         font-family: 'Roboto Condensed', sans-serif;
       }
-
       .axis path,
       .axis line {
         fill: none;
         stroke: #000;
         shape-rendering: crispEdges;
       }
-
     </style>
   </head>
   <body>
     <script>
-      var outerWidth = 500;
-      var outerHeight = 250;
-      var margin = { left: 90, top: 30, right: 30, bottom: 30 };
+      var outerWidth = 505;
+      var outerHeight = 350;
+      var margin = { left: 110, top: 50, right: 30, bottom: 60 };
       var barPadding = 0.2;
-
       var xColumn = "Movie";
       var yColumn = "BoxOffice";
-
       var innerWidth  = outerWidth  - margin.left - margin.right;
       var innerHeight = outerHeight - margin.top  - margin.bottom;
-
       var svg = d3.select("body").append("svg")
         .attr("width",  outerWidth)
         .attr("height", outerHeight);
@@ -58,25 +53,19 @@
         .attr("transform", "translate(0," + innerHeight + ")");
       var yAxisG = g.append("g")
         .attr("class", "y axis");
-
       var xScale = d3.scale.ordinal().rangeBands([0, innerWidth], barPadding);
       var yScale = d3.scale.linear().range([innerHeight, 0]);
-
       var xAxis = d3.svg.axis().scale(xScale).orient("bottom")
         .outerTickSize(0);          // Turn off the marks at the end of the axis.
       var yAxis = d3.svg.axis().scale(yScale).orient("left")
         .ticks(5)                   // Use approximately 5 ticks marks.
         .tickFormat(d3.format("s")) // Use intelligent abbreviations, e.g. 5M for 5 Million
         .outerTickSize(0);          // Turn off the marks at the end of the axis.
-
       function render(data){
-
         xScale.domain(       data.map( function (d){ return d[xColumn]; }));
         yScale.domain([0, d3.max(data, function (d){ return d[yColumn]; })]);
-
         xAxisG.call(xAxis);
         yAxisG.call(yAxis);
-
         var bars = g.selectAll("rect").data(data);
         bars.enter().append("rect")
           .attr("width", xScale.rangeBand());
@@ -86,14 +75,11 @@
           .attr("height", function (d){ return innerHeight - yScale(d[yColumn]); });
         bars.exit().remove();
       }
-
       function type(d){
         d.BoxOffice = +d.BoxOffice;
         return d;
       }
-
       d3.csv("https://raw.githubusercontent.com/raul-pingarron/D3.js_DATAPAK/master/peliculas.csv", type, render);
-
     </script>
   </body>
 </html>
